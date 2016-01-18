@@ -1,12 +1,26 @@
 from __future__ import division
 import numpy 
 
+# die klasse kann ein dictionary bekommen, dass die folgenden keywords haben sein sollte
+# 'anzahl_wurfel_abbruch' benennt die Anzahl würfel in der Hand des Würfelnden, bei der er nichtweiterwürfelt, sondern die erwürfelten Punkte nimmt
+# 'multiplikatorx_abwann' bezeichnet die "Runde" in der der x-te Multiplikator rausgelegt werden darf. Dabei bezeichnet 1 sofort die allererste Runde
+#       in der man mit 7 Würfeln startet, Runde 2 die Runde, nachdem man sich das erste Mal Häschenpunkte hat festhalten lassen usw.
+# 'wurfel_raus' beschreibt die Strategie nach der Häschen gewählt werden. Folgende Optionen sind möglich:
+#       max: es werden immer alle möglichen Hasen rausgelegt
+#       min: es wird immer die minimal mögliche anzahl an würfeln herausgelegt - sollten also zwei einerhasen und ein doppelhase gewürfelt worden sein, wird sich
+#            für den doppelhasen entschieden, da weniger würfel benötigt werden um weiterzuwürfeln. Im falle eines doppelhasen und eines einerhasen, ebenfalls der 
+#            doppelhase, da dieser bei gleicher anzahl würfel die größere punkt zahl ergibt.
+#       minmax: Es wird darauf geachtet, dass wiederum eine möglichst kleine Anzahl würfel immer herausgelegt wird, bei allerdings möglichst maximaler Punktzahl. 
+#               Im Vergleich zur Option "min" werden hier beispielsweise die beiden einzelhasen dem doppelhasen vorgezogen.
+# 'abbruch_punkte' beschreibt die Mindestanzahl Punkte die in Kombination mit der "anzahl_wurfel_abbruch" bedingung ebenfalls zum nicht weiterwürfeln führt
+
 class wurfelaktion():
 
-    def __init__(self,anzahl_wurfel,multiplikator,punktewurfel):
+    def __init__(self,anzahl_wurfel,multiplikator,punktewurfel,dictio):
         self.anzahl_wurfel = anzahl_wurfel
         self.multiplikator = multiplikator
         self.anzahl_punktewurfel = punktewurfel
+        self.strategy = dictio
 
     def anzahl_in_array(self,string):
         anzahl = 0
